@@ -6,17 +6,41 @@ import {
   Param,
   Put,
   Post,
+  HttpException,
+  HttpStatus,
+  Scope,
+  Inject,
 } from '@nestjs/common';
 import { Song, SongsService } from './songs.service';
 import { CreateSongDTO } from './dto/create-song-dto';
+import type { Connection } from 'src/common/constants/connection';
 
-@Controller('songs')
+@Controller({
+  path: 'songs',
+  scope: Scope.REQUEST,
+})
 export class SongsController {
-  constructor(private readonly songsService: SongsService) {}
+  constructor(
+    private readonly songsService: SongsService,
+    @Inject('CONNECTION')
+    private connection: Connection,
+  ) {
+    console.log(
+      `THIS IS CONNECTION STRING ${this.connection.CONNECTION_STRING}`,
+    );
+  }
 
   @Get()
   getAllSongs() {
-    return this.songsService.getAllSongs();
+    try {
+      return this.songsService.getAllSongs();
+    } catch (err) {
+      throw new HttpException(
+        'Server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        { cause: err },
+      );
+    }
   }
 
   @Get(':id')

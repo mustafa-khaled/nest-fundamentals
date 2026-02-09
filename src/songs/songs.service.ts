@@ -3,14 +3,31 @@ import { Injectable } from '@nestjs/common';
 export class Song {
   id: number;
   title: string;
-  artist: string;
+  artist: string[];
 }
 
 @Injectable()
 export class SongsService {
-  private readonly songs: Song[] = [];
+  private readonly songs: Song[] = [
+    {
+      id: 1,
+      title: 'One',
+      artist: ['Mustafa Khaled', 'Ramy Ahmed', 'Mohammed W'],
+    },
+    {
+      id: 2,
+      title: 'Two',
+      artist: ['Mustafa Khaled', 'Ramy Ahmed', 'Mohammed W'],
+    },
+    {
+      id: 3,
+      title: 'Three',
+      artist: ['Mustafa Khaled', 'Ramy Ahmed', 'Mohammed W'],
+    },
+  ];
 
   getAllSongs() {
+    // throw new Error('Error in DB while fetching songs');
     return this.songs;
   }
 
