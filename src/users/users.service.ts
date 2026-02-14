@@ -15,21 +15,21 @@ export class UsersService {
       id: 1,
       name: 'Mustafa',
       age: 24,
-      gender: 'Male',
+      gender: 'male',
       isMarried: false,
     },
     {
       id: 2,
       name: 'Mariam',
       age: 25,
-      gender: 'Female',
+      gender: 'female',
       isMarried: true,
     },
     {
       id: 3,
       name: 'Khaled',
       age: 25,
-      gender: 'Male',
+      gender: 'male',
       isMarried: true,
     },
   ];
@@ -40,12 +40,6 @@ export class UsersService {
 
   getUserById(id: number) {
     return this.users.find((user) => user.id === id);
-  }
-
-  getUserByIdAndGender(id: number, gender: string) {
-    return this.users.find(
-      (user) => user.id === id && user.gender === gender,
-    );
   }
 
   createUser(user: User) {
