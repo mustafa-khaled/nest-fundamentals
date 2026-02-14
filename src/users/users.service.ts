@@ -3,32 +3,32 @@ import { Injectable } from '@nestjs/common';
 export interface User {
   id: number;
   name: string;
-  age: number;
-  gender: string;
+  email: string;
+  gender?: string;
   isMarried: boolean;
 }
 
 @Injectable()
 export class UsersService {
-  private users = [
+  private readonly users = [
     {
       id: 1,
       name: 'Mustafa',
-      age: 24,
+      email: 'mustafa@mail.com',
       gender: 'male',
       isMarried: false,
     },
     {
       id: 2,
       name: 'Mariam',
-      age: 25,
+      email: 'mariam@mail.com',
       gender: 'female',
       isMarried: true,
     },
     {
       id: 3,
       name: 'Khaled',
-      age: 25,
+      email: 'khaled@mail.com',
       gender: 'male',
       isMarried: true,
     },
@@ -43,7 +43,7 @@ export class UsersService {
   }
 
   createUser(user: User) {
-    this.users.push(user);
+    // this.users.push(user);
     return user;
   }
 }

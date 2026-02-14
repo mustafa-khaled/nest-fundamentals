@@ -9,7 +9,7 @@ import {
   DefaultValuePipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import type { User } from './users.service';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -29,7 +29,8 @@ export class UsersController {
   }
 
   @Post()
-  createUser(@Body() user: User) {
-    return this.userService.createUser(user);
+  createUser(@Body() user: CreateUserDto) {
+    // return this.userService.createUser(user);
+    return 'Test response';
   }
 }
