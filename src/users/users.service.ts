@@ -1,13 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  gender?: string;
-  isMarried: boolean;
-}
-
 @Injectable()
 export class UsersService {
   private readonly users = [
@@ -42,7 +34,7 @@ export class UsersService {
     return this.users.find((user) => user.id === id);
   }
 
-  createUser(user: User) {
+  createUser(user) {
     // this.users.push(user);
     return user;
   }
