@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class TweetService {
-  private tweets = [
+  private readonly tweets = [
     {
       id: 1,
       content: 'Hello tweets',
