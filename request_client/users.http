@@ -1,0 +1,8 @@
+### get all tweets
+GET http://localhost:3000/tweet
+
+### get tweet by id
+GET http://localhost:3000/tweet/1
+
+### get tweets by user id
+GET http://localhost:3000/tweet/user/1
