@@ -3,7 +3,7 @@ import { TweetController } from './tweet.controller';
 import { TweetService } from './tweet.service';
 
 describe('TweetController', () => {
-  let appController: TweetController;
+  let tweetController: TweetController;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -11,6 +11,6 @@ describe('TweetController', () => {
       providers: [TweetService],
     }).compile();
 
-    appController = app.get<TweetController>(TweetController);
+    tweetController = app.get<TweetController>(TweetController);
   });
 });
