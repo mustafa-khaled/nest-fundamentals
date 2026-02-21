@@ -25,12 +25,5 @@ export class TweetService {
     return this.tweets.find((tweet) => tweet.id === id);
   }
 
-  getTweetsByUserId(userId: number) {
-    const user = this.userService.getUserById(userId);
-    const tweets = this.tweets.filter((tweet) => tweet.userId === userId);
-    return {
-      user,
-      tweets,
-    };
-  }
+  getTweetsByUserId(userId: number) {}
 }

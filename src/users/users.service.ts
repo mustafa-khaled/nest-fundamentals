@@ -1,68 +1,31 @@
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  gender: string;
-  password: string;
-  isMarried: boolean;
-}
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './user.entity';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject(forwardRef(() => AuthService))
-    private readonly authService: AuthService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
-  private readonly users = [
-    {
-      id: 1,
-      name: 'Mustafa',
-      email: 'mustafa@mail.com',
-      gender: 'male',
-      password: 'password',
-      isMarried: false,
-    },
-    {
-      id: 2,
-      name: 'Mariam',
-      email: 'mariam@mail.com',
-      gender: 'female',
-      password: 'password',
-      isMarried: true,
-    },
-    {
-      id: 3,
-      name: 'Khaled',
-      email: 'khaled@mail.com',
-      gender: 'male',
-      password: 'password',
-      isMarried: true,
-    },
-  ];
 
   getAllUsers() {
-    if(this.authService.isAuthenticated){
-      return this.users;
+    return this.userRepository.find();
+  }
+
+  async createUser(userDto: CreateUserDto) {
+    const isExist = await this.userRepository.findOne({
+      where: { email: userDto.email },
+    });
+
+    if (isExist) {
+      throw new BadRequestException('User already exists');
     }
-    return 'You are not authenticated!!';
-  }
 
-  getUserById(id: number) {
-    return this.users.find((user) => user.id === id);
-  }
+    const user = this.userRepository.create(userDto);
 
-  createUser(user: User) {
-    this.users.push(user);
-    return user;
-  }
-  findUserByEmailAndPassword(email: string, password: string) {
-    const user = this.users.find(
-      (user) => user.email === email && user.password === password,
-    );
-
-    return user;
+    return this.userRepository.save(user);
   }
 }

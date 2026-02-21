@@ -6,6 +6,7 @@ import { TweetModule } from './tweet/tweet.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
         username: 'mustafakhaled',
         password: 'password',
         database: 'nestjs',
-        entities: [],
+        entities: [User],
         synchronize: true,
       }),
     }),
