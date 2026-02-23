@@ -8,12 +8,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './users/user.entity';
 import { Profile } from './profile/profile.entity';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
     UsersModule,
     TweetModule,
     AuthModule,
+    ProfileModule,
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
