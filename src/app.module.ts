@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './users/user.entity';
+import { Profile } from './profile/profile.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,9 @@ import { User } from './users/user.entity';
         username: 'mustafakhaled',
         password: 'password',
         database: 'nestjs',
-        entities: [User],
+        entities: [User, Profile],
+        autoLoadEntities: true,
+        // TODO: remove this in production
         synchronize: true,
       }),
     }),

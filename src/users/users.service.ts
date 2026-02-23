@@ -3,12 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { Profile } from 'src/profile/profile.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Profile)
+    private readonly profileRepository: Repository<Profile>,
   ) {}
 
   getAllUsers() {
@@ -16,15 +19,10 @@ export class UsersService {
   }
 
   async createUser(userDto: CreateUserDto) {
-    const isExist = await this.userRepository.findOne({
-      where: { email: userDto.email },
-    });
+    // if profile is not provided, create an empty profile
+    userDto.profile = userDto.profile ?? {};
 
-    if (isExist) {
-      throw new BadRequestException('User already exists');
-    }
-
-    const user = this.userRepository.create(userDto);
+    let user = this.userRepository.create(userDto);
 
     return this.userRepository.save(user);
   }
