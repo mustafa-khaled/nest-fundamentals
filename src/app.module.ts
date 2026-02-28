@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { User } from './users/user.entity';
 import { Profile } from './profile/profile.entity';
 import { ProfileModule } from './profile/profile.module';
+import { HashtagModule } from './hashtag/hashtag.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ProfileModule } from './profile/profile.module';
     TweetModule,
     AuthModule,
     ProfileModule,
+    HashtagModule,
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',

@@ -32,18 +32,20 @@ export class UsersService {
   }
 
   async deleteUser(id: number) {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) {
-      throw new BadRequestException('User not found');
-    }
     await this.userRepository.delete(id);
-
-    if (user.profile?.id) {
-      await this.profileRepository.delete(user.profile.id);
-    }
 
     return {
       deleted: true,
     };
+  }
+
+  async findUserById(id: number) {
+    const user = await this.profileRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new BadRequestException('No user found!');
+    }
+
+    return user;
   }
 }

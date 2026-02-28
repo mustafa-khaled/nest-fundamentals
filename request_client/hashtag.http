@@ -1,0 +1,12 @@
+
+### get all hashtags
+GET http://localhost:3000/hashtag
+
+### create hashtag
+POST http://localhost:3000/hashtag
+Content-Type: application/json
+
+{
+  "name": "css"
+}
+

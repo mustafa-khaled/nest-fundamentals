@@ -6,18 +6,18 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "username": "mustafa",
-    "email": "mustafa.t@gmail.com",
+    "username": "mariam",
+    "email": "mariam.t@gmail.com",
     "password": "12345678",
-    "profile": {
-        "firstName": "mustafa",
+      "profile": {
+        "firstName": "mariam",
         "lastName": "Taha",
         "gender": "Female",
         "dateOfBirth": "2000-01-01",
-        "bio": "Hello, I'm mustafa",
+        "bio": "Hello, I'm mariam",
         "profileImage": "https://example.com/sarah.jpg"
     }
 }
 
 ### Delete user
-DELETE http://localhost:3000/users/1
+DELETE http://localhost:3000/users/4
