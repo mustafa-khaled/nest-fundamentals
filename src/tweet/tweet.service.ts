@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { Tweet } from './tweet.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { HashtagService } from 'src/hashtag/hashtag.service';
+import { UpdateTweetDto } from './dto/update-tweet.dto';
 
 @Injectable()
 export class TweetService {
@@ -23,6 +24,17 @@ export class TweetService {
     });
   }
 
+  async getTweetBy(id: number) {
+    const tweet = await this.tweetRepository.findOne({
+      where: { id },
+      relations: { user: true, hashtags: true },
+    });
+    if (!tweet) {
+      throw new NotFoundException('Tweet not found');
+    }
+    return tweet; // Returns Tweet (not Tweet | null) because we handled the null case
+  }
+
   async createTweet(createTweetDto: CreateTweetDto) {
     const user = await this.userService.findUserById(createTweetDto.userId);
     const hashtags = await this.hashtagService.findHashtags(
@@ -35,6 +47,19 @@ export class TweetService {
       user,
     });
 
+    return this.tweetRepository.save(tweet);
+  }
+
+  async update(dto: UpdateTweetDto) {
+    let tweet = await this.getTweetBy(dto.id);
+    // Partial update logic
+    tweet.text = dto.text ?? tweet.text;
+    tweet.image = dto.image ?? tweet.image;
+
+    // Only update hashtags if they were provided in the DTO
+    if (dto.hashtags) {
+      tweet.hashtags = await this.hashtagService.findHashtags(dto.hashtags);
+    }
     return this.tweetRepository.save(tweet);
   }
 }

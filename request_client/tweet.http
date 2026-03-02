@@ -1,5 +1,8 @@
 ### get all tweets
-GET http://localhost:3000/tweet/3
+GET http://localhost:3000/tweet/user/3
+
+### get tweet by id
+GET http://localhost:3000/tweet/1
 
 ### create tweet
 POST http://localhost:3000/tweet
@@ -10,4 +13,16 @@ Content-Type: application/json
   "image": "https://example.com/image.jpg",
   "userId": 3,
   "hashtags": [2, 5]
+}
+
+
+### Update tweet
+PATCH http://localhost:3000/tweet
+Content-Type: application/json
+
+{
+  "text": "This is the tweet number x",
+  "image": "https://example.com/image.jpg",
+  "hashtags": [],
+  "id": 1
 }
