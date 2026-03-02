@@ -7,6 +7,6 @@ POST http://localhost:3000/hashtag
 Content-Type: application/json
 
 {
-  "name": "css"
+  "name": "somethingelse"
 }
 

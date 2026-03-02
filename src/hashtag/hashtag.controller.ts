@@ -10,9 +10,4 @@ export class HashtagController {
   create(@Body() createHashtagDto: CreateHashtagDto) {
     return this.hashtagService.create(createHashtagDto);
   }
-
-  @Get()
-  findAll() {
-    return this.hashtagService.findAll();
-  }
 }

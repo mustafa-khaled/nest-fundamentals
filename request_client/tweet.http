@@ -6,7 +6,8 @@ POST http://localhost:3000/tweet
 Content-Type: application/json
 
 {
-  "text": "This is just s",
+  "text": "This is the tweet number x",
   "image": "https://example.com/image.jpg",
-  "userId": 3
+  "userId": 3,
+  "hashtags": [2, 5]
 }
